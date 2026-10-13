@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İnteraktiv Bilet Satışı Sistemi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Böyük Teatr - İnteraktiv Bilet Sistemi</h1>
+    </header>
+    <div class="main-container">
+        <div class="map-section">
+            <div class="controls">
+                <button onclick="zoomIn()">➕ Zoom In</button>
+                <button onclick="zoomOut()">➖ Zoom Out</button>
+                <button onclick="move(0, 50)">⬆️ Up</button>
+                <button onclick="move(0, -50)">⬇️ Down</button>
+                <button onclick="move(50, 0)">⬅️ Left</button>
+                <button onclick="move(-50, 0)">➡️ Right</button>
+                <button onclick="resetView()">🔄 Reset View</button>
+            </div>
+            <div class="venue-wrapper" id="venue-wrapper">
+                <div class="venue" id="venue">
+                </div>
+            </div>
+        </div>
+        <div class="sidebar">
+            <div class="panel" id="inspector-panel">
+                <h3>Oturacaq Detalları</h3>
+                <div id="inspector-content"><p>Xəritədən bir oturacaq seçin.</p></div>
+                <button id="add-to-cart-btn" class="action-btn" disabled onclick="addToCart()">SƏBƏTƏ ƏLAVƏ ET</button>
+            </div>
+            <div class="panel">
+                <h3>Səbətiniz</h3>
+                <div class="cart-items" id="cart-items"></div>
+                <div class="cart-total" id="cart-total">Total: 0 ₼</div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
