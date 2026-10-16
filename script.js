@@ -1,8 +1,8 @@
 const venueData = {
     rows: 8, cols: 14,
     zones: {
-        vip: { name: 'VIP Zolaq', price: 100, type: 'vip', startRow: 1, endRow: 3 },
-        standart: { name: 'Standart Zolaq', price: 40, type: 'standart', startRow: 4, endRow: 8 }
+        vip: { name: 'VIP Zone', price: 100, type: 'vip', startRow: 1, endRow: 3 },
+        standart: { name: 'Standart Zone', price: 40, type: 'standart', startRow: 4, endRow: 8 }
     }
 };
 
