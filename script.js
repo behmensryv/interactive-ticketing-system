@@ -52,3 +52,25 @@ function renderVenue() {
     }
     venueEl.innerHTML = stageHTML + seatsHTML;
 }
+
+function inspectSeat(seatId) {
+    const seatData = seats.find(s => s.id === seatId);
+    if (!seatData || seatData.status === 'unavailable') return;
+
+    inspectedSeatId = seatId;
+    renderVenue();
+
+    document.getElementById('inspector-content').innerHTML = `
+        <p><strong>Zolaq:</strong> ${seatData.zoneName}</p>
+        <p><strong>Sıra:</strong> ${seatData.row}</p>
+        <p><strong>Yer:</strong> ${seatData.col}</p>
+        <p><strong>Qiymət:</strong> ${seatData.price} ₼</p>
+    `;
+
+    const addBtn = document.getElementById('add-to-cart-btn');
+    if (cart.some(item => item.id === seatId)) {
+        addBtn.disabled = true; addBtn.innerText = "ARTIQ SƏBƏTDƏDİR";
+    } else {
+        addBtn.disabled = false; addBtn.innerText = "SƏBƏTƏ ƏLAVƏ ET";
+    }
+}
