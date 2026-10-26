@@ -74,3 +74,14 @@ function inspectSeat(seatId) {
         addBtn.disabled = false; addBtn.innerText = "SƏBƏTƏ ƏLAVƏ ET";
     }
 }
+
+function applyTransform() {
+    scale = Math.max(0.5, Math.min(scale, 3));
+    translateX = Math.max(-1000, Math.min(translateX, 1000));
+    translateY = Math.max(-1000, Math.min(translateY, 1000));
+    document.getElementById('venue').style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+}
+function zoomIn() { scale += 0.2; applyTransform(); }
+function zoomOut() { scale -= 0.2; applyTransform(); }
+function move(dx, dy) { translateX += dx; translateY += dy; applyTransform(); }
+function resetView() { scale = 1; translateX = 0; translateY = 0; applyTransform(); }
