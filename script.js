@@ -85,3 +85,44 @@ function zoomIn() { scale += 0.2; applyTransform(); }
 function zoomOut() { scale -= 0.2; applyTransform(); }
 function move(dx, dy) { translateX += dx; translateY += dy; applyTransform(); }
 function resetView() { scale = 1; translateX = 0; translateY = 0; applyTransform(); }
+
+function addToCart() {
+    if (!inspectedSeatId) return;
+    const seatData = seats.find(s => s.id === inspectedSeatId);
+    if (cart.some(item => item.id === inspectedSeatId)) return;
+
+    cart.push(seatData);
+    updateCartUI();
+    inspectSeat(inspectedSeatId); 
+}
+
+function removeFromCart(seatId) {
+    cart = cart.filter(item => item.id !== seatId);
+    updateCartUI();
+    if (inspectedSeatId === seatId) inspectSeat(seatId); 
+    else renderVenue(); 
+}
+
+function updateCartUI() {
+    const cartItemsEl = document.getElementById('cart-items');
+    const cartTotalEl = document.getElementById('cart-total');
+    
+    if (cart.length === 0) {
+        cartItemsEl.innerHTML = '<p style="color: #7f8c8d; font-style: italic;">Səbətiniz boşdur.</p>';
+        cartTotalEl.innerText = `Total: 0 ₼`;
+        return;
+    }
+
+    let html = '';
+    let total = 0;
+    cart.forEach(item => {
+        total += item.price;
+        html += `<div class="cart-item">
+            <div><strong>Sıra ${item.row}, Yer ${item.col}</strong><br><small>${item.zoneName}</small></div>
+            <div><span style="font-weight: bold; margin-right: 15px;">${item.price} ₼</span>
+            <button class="remove-btn" onclick="removeFromCart('${item.id}')">X</button></div>
+        </div>`;
+    });
+    cartItemsEl.innerHTML = html;
+    cartTotalEl.innerText = `Total: ${total} ₼`;
+}
