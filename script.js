@@ -86,18 +86,26 @@ function zoomOut() { scale -= 0.2; applyTransform(); }
 function move(dx, dy) { translateX += dx; translateY += dy; applyTransform(); }
 function resetView() { scale = 1; translateX = 0; translateY = 0; applyTransform(); }
 
+function saveCartToStorage() { localStorage.setItem('venueCart', JSON.stringify(cart)); }
+function loadCartFromStorage() {
+    const savedCart = localStorage.getItem('venueCart');
+    if (savedCart) cart = JSON.parse(savedCart);
+}
+
 function addToCart() {
     if (!inspectedSeatId) return;
     const seatData = seats.find(s => s.id === inspectedSeatId);
     if (cart.some(item => item.id === inspectedSeatId)) return;
 
     cart.push(seatData);
+    saveCartToStorage();
     updateCartUI();
     inspectSeat(inspectedSeatId); 
 }
 
 function removeFromCart(seatId) {
     cart = cart.filter(item => item.id !== seatId);
+    saveCartToStorage();
     updateCartUI();
     if (inspectedSeatId === seatId) inspectSeat(seatId); 
     else renderVenue(); 
