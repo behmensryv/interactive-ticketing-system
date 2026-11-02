@@ -134,3 +134,10 @@ function updateCartUI() {
     cartItemsEl.innerHTML = html;
     cartTotalEl.innerText = `Total: ${total} ₼`;
 }
+
+function init() {
+    generateSeatsData();
+    loadCartFromStorage();
+    renderVenue();
+    updateCartUI();
+}
