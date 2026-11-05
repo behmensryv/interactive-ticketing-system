@@ -135,9 +135,38 @@ function updateCartUI() {
     cartTotalEl.innerText = `Total: ${total} ₼`;
 }
 
+function setupMouseEvents() {
+    const wrapper = document.getElementById('venue-wrapper');
+    if(!wrapper) return;
+    let isDragging = false, startX, startY;
+
+    wrapper.addEventListener('wheel', (e) => {
+        e.preventDefault();
+        if (e.deltaY < 0) zoomIn(); else zoomOut();
+    });
+
+    wrapper.addEventListener('mousedown', (e) => {
+        if (e.target.classList.contains('seat')) return;
+        isDragging = true;
+        startX = e.clientX - translateX;
+        startY = e.clientY - translateY;
+    });
+
+    window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        translateX = e.clientX - startX;
+        translateY = e.clientY - startY;
+        applyTransform();
+    });
+
+    window.addEventListener('mouseup', () => { isDragging = false; });
+    window.addEventListener('mouseleave', () => { isDragging = false; });
+}
+
 function init() {
     generateSeatsData();
     loadCartFromStorage();
     renderVenue();
     updateCartUI();
+    setupMouseEvents();
 }
