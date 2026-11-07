@@ -61,17 +61,17 @@ function inspectSeat(seatId) {
     renderVenue();
 
     document.getElementById('inspector-content').innerHTML = `
-        <p><strong>Zolaq:</strong> ${seatData.zoneName}</p>
-        <p><strong>Sıra:</strong> ${seatData.row}</p>
-        <p><strong>Yer:</strong> ${seatData.col}</p>
-        <p><strong>Qiymət:</strong> ${seatData.price} ₼</p>
+        <p><strong>Zone Name:</strong> ${seatData.zoneName}</p>
+        <p><strong>Row:</strong> ${seatData.row}</p>
+        <p><strong>Seat Number:</strong> ${seatData.col}</p>
+        <p><strong>Price:</strong> ${seatData.price} ₼</p>
     `;
 
     const addBtn = document.getElementById('add-to-cart-btn');
     if (cart.some(item => item.id === seatId)) {
-        addBtn.disabled = true; addBtn.innerText = "ARTIQ SƏBƏTDƏDİR";
+        addBtn.disabled = true; addBtn.innerText = "ALREADY IN CART";
     } else {
-        addBtn.disabled = false; addBtn.innerText = "SƏBƏTƏ ƏLAVƏ ET";
+        addBtn.disabled = false; addBtn.innerText = "ADD TO CART";
     }
 }
 
@@ -116,7 +116,7 @@ function updateCartUI() {
     const cartTotalEl = document.getElementById('cart-total');
     
     if (cart.length === 0) {
-        cartItemsEl.innerHTML = '<p style="color: #7f8c8d; font-style: italic;">Səbətiniz boşdur.</p>';
+        cartItemsEl.innerHTML = '<p style="color: #7f8c8d; font-style: italic;">Your cart is empty.</p>';
         cartTotalEl.innerText = `Total: 0 ₼`;
         return;
     }
@@ -126,7 +126,7 @@ function updateCartUI() {
     cart.forEach(item => {
         total += item.price;
         html += `<div class="cart-item">
-            <div><strong>Sıra ${item.row}, Yer ${item.col}</strong><br><small>${item.zoneName}</small></div>
+            <div><strong>Row ${item.row}, Seat ${item.col}</strong><br><small>${item.zoneName}</small></div>
             <div><span style="font-weight: bold; margin-right: 15px;">${item.price} ₼</span>
             <button class="remove-btn" onclick="removeFromCart('${item.id}')">X</button></div>
         </div>`;
